@@ -1,0 +1,5 @@
+Gemfile.local
+Gemfile.local.lock
+Gemfile.lock
+.bundle
+*.gem
