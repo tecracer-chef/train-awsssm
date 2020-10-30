@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## Version 0.2.0
+
 - Add more parameter and status checks
 - Add InSpec support by properly handling failing commands
 - Add Windows support
