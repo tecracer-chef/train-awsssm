@@ -9,7 +9,7 @@ module TrainPlugins
       def initialize(options)
         super(options)
 
-        check_optiońs
+        check_options
 
         @ssm = Aws::SSM::Client.new
       end
@@ -116,7 +116,7 @@ module TrainPlugins
 
       # Execute a command via SSM
       def execute_command(address, command)
-        instance_id = if address.start_with? 'i-'
+        instance_id = if address.start_with? "i-"
                         address
                       else
                         instance_id(address)
