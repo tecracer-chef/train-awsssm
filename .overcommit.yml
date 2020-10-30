@@ -1,0 +1,41 @@
+---
+quiet: true
+verify_signatures: false
+CommitMsg:
+  HardTabs:
+    enabled: true
+PreCommit:
+  RakeTarget:
+    enabled: true
+    targets:
+      - lint
+  BundleAudit:
+    enabled: true
+  BundleCheck:
+    enabled: true
+  BundleOutdated:
+    enabled: true
+  ExecutePermissions:
+    enabled: true
+    exclude:
+      - bin/*
+  HardTabs:
+    enabled: true
+  JsonSyntax:
+    enabled: true
+  LineEndings:
+    enabled: true
+    eol: "\n"
+  Mdl:
+    enabled: true
+    include:
+      - "*.md"
+  Rspec:
+    enabled: false
+    required_executable: 'rspec'
+  TrailingWhitespace:
+    enabled: true
+  YamlLint:
+    enabled: true
+  YamlSyntax:
+    enabled: true

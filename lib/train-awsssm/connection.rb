@@ -9,6 +9,8 @@ module TrainPlugins
       def initialize(options)
         super(options)
 
+        check_optiońs
+
         @ssm = Aws::SSM::Client.new
       end
 
@@ -114,7 +116,11 @@ module TrainPlugins
 
       # Execute a command via SSM
       def execute_command(address, command)
-        instance_id = instance_id(address)
+        instance_id = if address.start_with? 'i-'
+                        address
+                      else
+                        instance_id(address)
+                      end
 
         cmd = @ssm.send_command(instance_ids: [instance_id], document_name: "AWS-RunShellScript", parameters: { "commands": [command] })
         cmd_id = cmd.command.command_id
@@ -137,6 +143,13 @@ module TrainPlugins
         end
 
         result
+      end
+
+      # Check if options are as needed
+      def check_options
+        unless options[:host]
+          raise format("Missing required option :host for train-awsssm")
+        end
       end
     end
   end

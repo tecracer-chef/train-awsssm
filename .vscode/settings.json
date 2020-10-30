@@ -1,0 +1,13 @@
+{
+  "editor.renderFinalNewline": true,
+  "editor.renderWhitespace":"all",
+  "editor.trimAutoWhitespace": true,
+  "files.exclude": {
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "recommendations": [
+    "rebornix.ruby",
+    "editorconfig.editorconfig"
+  ]
+}
