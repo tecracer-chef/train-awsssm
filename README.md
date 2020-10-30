@@ -1,8 +1,6 @@
 # train-awsssm - Train Plugin for using AWS Systems Manager Agent
 
-This plugin allows applications that rely on Train to communicate via AWS SSM with Linux instances.
-
-Windows is currently not yet supported
+This plugin allows applications that rely on Train to communicate via AWS SSM with Linux/Windows instances.
 
 ## Requirements
 
@@ -10,7 +8,7 @@ The instance in question must run on AWS and you need to have all AWS credential
 
 You need the [SSM agent to be installed](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html) on the machine (most current AMIs already have this integrated) and the machine needs to have the managed policy `AmazonSSMManagedInstanceCore` or a least privilege equivalent attached as IAM profile.
 
-Commands will be executed under the `root` user.
+Commands will be executed under the `root`/`Administrator` users.
 
 ## Installation
 
@@ -20,12 +18,13 @@ You can build and install this gem on your local system as well via a Rake task:
 
 ## Transport parameters
 
-| Option               | Explanation                                   | Default          |
-| -------------------- | --------------------------------------------- | ---------------- |
-| `host`               | IP, DNS name or EC2 ID of instance            | (required)       |
-| `execution_timeout`  | Maximum time until timeout                    | 60               |
-| `recheck_invocation` | Interval of rechecking AWS command invocation | 1.0              |
-| `recheck_execution`  | Interval of rechecking completion of command  | 1.0              |
+| Option               | Explanation                                       | Default          |
+| -------------------- | ------------------------------------------------- | ---------------- |
+| `host`               | IP, DNS name or EC2 ID of instance                | (required)       |
+| `mode`               | Mode for connection, only 'run-command' currently | run-command      |
+| `execution_timeout`  | Maximum time until timeout                        | 60               |
+| `recheck_invocation` | Interval of rechecking AWS command invocation     | 1.0              |
+| `recheck_execution`  | Interval of rechecking completion of command      | 1.0              |
 
 ## Limitations
 
