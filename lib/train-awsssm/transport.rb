@@ -6,6 +6,7 @@ module TrainPlugins
       name "awsssm"
 
       option :host,               required: true
+      option :mode,               default: "run-command"
 
       option :execution_timeout,  default: 60.0
       option :recheck_invocation, default: 1.0
