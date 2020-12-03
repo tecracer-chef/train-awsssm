@@ -7,7 +7,7 @@ module TrainPlugins
   module AWSSSM
     class Connection < Train::Plugins::Transport::BaseConnection
       attr_reader :instance_id, :options
-      attr_writer :ssm, :ec2
+      attr_writer :ssm, :ec2, :instances
 
       def initialize(options)
         super(options)
@@ -85,8 +85,6 @@ module TrainPlugins
       def resolve_instance_id(address)
         logger.debug format("[AWS-SSM] Trying to resolve address %s", address)
 
-        instances = ec2.describe_instances.reservations.collect { |r| r.instances.first }
-
         # Resolve, if DNS name and not Amazon default
         if dns_name?(address) && !amazon_dns?(address)
           address = Resolv.getaddress(address)
@@ -110,6 +108,28 @@ module TrainPlugins
         id
       rescue ::Aws::Errors::ServiceError => e
         raise ArgumentError, format("Error looking up Instance ID for %s: %s", address, e.message)
+      end
+
+      # List up EC2 instances in the account.
+      #
+      # @param [Boolean] cache Cache results
+      # @return [Array] List of instances
+      # @todo Implement paging
+      def instances(caching: true)
+        return @instances unless @instances.nil? || !caching
+
+        results = []
+
+        ec2_instances = ec2.describe_instances(max_results: options[:instance_pagesize])
+        loop do
+          results.concat ec2_instances.reservations.map(&:instances).flatten
+
+          break unless ec2_instances.next_token
+
+          ec2_instances = ec2.describe_instances(max_results: options[:instance_pagesize], next_token: ec2_instances.next_token)
+        end
+
+        @instances = results
       end
 
       # Check if this is an IP address

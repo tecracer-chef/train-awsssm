@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Version 0.2.1
+
+- Fix EC2 instance enumeration to use paging
+
 ## Version 0.2.0
 
 - Add more parameter and status checks
