@@ -11,6 +11,7 @@ module TrainPlugins
       option :execution_timeout,  default: 60.0
       option :recheck_invocation, default: 1.0
       option :recheck_execution,  default: 1.0
+      option :instance_pagesize,  default: 100
 
       def connection(_instance_opts = nil)
         @connection ||= TrainPlugins::AWSSSM::Connection.new(@options)

@@ -25,6 +25,7 @@ You can build and install this gem on your local system as well via a Rake task:
 | `execution_timeout`  | Maximum time until timeout                        | 60               |
 | `recheck_invocation` | Interval of rechecking AWS command invocation     | 1.0              |
 | `recheck_execution`  | Interval of rechecking completion of command      | 1.0              |
+| `instance_pagesize`  | Paging size for EC2 instance retrieval            | 100              |
 
 ## Limitations
 
