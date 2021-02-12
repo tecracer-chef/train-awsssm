@@ -35,12 +35,8 @@ jobs:
         run: |
           gem build *.gemspec
 
-      - name: generateotp
-        run: echo "::set-env name=OTPTOKEN::$(rotp --secret ${GEM_HOST_OTP_SECRET})"
-        env:
-          GEM_HOST_OTP_SECRET: ${{secrets.RUBYGEMS_OTP_SECRET}}
-
       - name: publish
         run: |
-          gem push *.gem --otp ${{ env.OTPTOKEN }}
-
+          gem push *.gem --otp $(rotp --secret ${GEM_HOST_OTP_SECRET})
+        env:
+          GEM_HOST_OTP_SECRET: ${{secrets.RUBYGEMS_OTP_SECRET}}
