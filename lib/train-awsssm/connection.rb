@@ -30,6 +30,10 @@ module TrainPlugins
         CommandResult.new(stdout, stderr, exit_status)
       end
 
+      def file_via_connection(path)
+        windows_instance? ? Train::File::Remote::Windows.new(self, path) : Train::File::Remote::Unix.new(self, path)
+      end
+
       def execute_on_channel(cmd, &data_handler)
         logger.debug format("[AWS-SSM] Command: '%s'", cmd)
 
