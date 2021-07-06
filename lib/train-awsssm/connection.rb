@@ -30,8 +30,18 @@ module TrainPlugins
         CommandResult.new(stdout, stderr, exit_status)
       end
 
-      def file_via_connection(path)
-        windows_instance? ? Train::File::Remote::Windows.new(self, path) : Train::File::Remote::Unix.new(self, path)
+      def file_via_connection(path, *args)
+        if os.aix?
+          Train::File::Remote::Aix.new(self, path, *args)
+        elsif os.solaris?
+          Train::File::Remote::Unix.new(self, path, *args)
+        elsif os[:name] == "qnx"
+          Train::File::Remote::Qnx.new(self, path, *args)
+        elsif os.windows?
+          Train::File::Remote::Windows.new(self, path, *args)
+        else
+          Train::File::Remote::Linux.new(self, path, *args)
+        end
       end
 
       def execute_on_channel(cmd, &data_handler)
