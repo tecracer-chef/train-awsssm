@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Version 0.3.0
+
+- Add support for `file_via_connection` (PR by @jkufro)
+
 ## Version 0.2.1
 
 - Fix EC2 instance enumeration to use paging
