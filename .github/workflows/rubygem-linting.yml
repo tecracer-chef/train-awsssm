@@ -1,0 +1,7 @@
+name: rubygem-linting
+
+on: push
+
+jobs:
+  rubygem-linting:
+    uses: tecracer-chef/.github/.github/workflows/rubygem-linting.yml@master
