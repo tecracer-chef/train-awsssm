@@ -9,3 +9,9 @@ on:
 jobs:
   rubygem-publish:
     uses: tecracer-chef/.github/.github/workflows/rubygem-publish.yml@master
+    secrets:
+      TR_RUBYGEM_HOST_URL: ${{secrets.TR_RUBYGEM_HOST_URL}}
+      TR_RUBYGEM_AUTH_TOKEN: ${{secrets.TR_RUBYGEM_AUTH_TOKEN}}
+      PUBLIC_RUBYGEM_HOST_URL: ${{secrets.PUBLIC_RUBYGEM_HOST_URL}}
+      PUBLIC_RUBYGEM_AUTH_TOKEN: ${{secrets.PUBLIC_RUBYGEM_AUTH_TOKEN}}
+      PUBLIC_RUBYGEM_HOST_OTP_SECRET: ${{secrets.PUBLIC_RUBYGEM_HOST_OTP_SECRET}}
