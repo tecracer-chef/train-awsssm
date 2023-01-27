@@ -1,0 +1,11 @@
+---
+name: rubygem-publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  rubygem-publish:
+    uses: tecracer-chef/.github/.github/workflows/rubygem-publish.yml@master

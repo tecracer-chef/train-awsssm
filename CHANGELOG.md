@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Version 0.3.1
+
+- Fix type problems when accepting URL-encoded parameters from Train
+
 ## Version 0.3.0
 
 - Add support for `file_via_connection` (PR by @jkufro)

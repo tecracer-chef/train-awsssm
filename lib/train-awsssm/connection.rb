@@ -89,6 +89,11 @@ module TrainPlugins
 
         raise ArgumentError, format("Instance %s is not running", instance_id) unless instance_running?
         raise ArgumentError, format("Instance %s is not managed by SSM or agent unreachable", instance_id) unless managed_instance?
+
+        options[:execution_timeout] = Integer(options[:execution_timeout])
+        options[:recheck_invocation] = Float(options[:recheck_invocation])
+        options[:recheck_execution] = Float(options[:recheck_execution])
+        options[:instance_pagesize] = Integer(options[:instance_pagesize])
       end
 
       # Resolve EC2 instance ID associated with a primary IP or a DNS entry
@@ -218,6 +223,7 @@ module TrainPlugins
       def execute_command(address, command)
         ssm_document = windows_instance? ? "AWS-RunPowerShellScript" : "AWS-RunShellScript"
 
+        logger.debug format("[AWS-SSM] Executing with timeout of %s seconds", options[:execution_timeout])
         cmd = ssm.send_command(instance_ids: [instance_id], document_name: ssm_document, parameters: { "commands": [command] })
         cmd_id = cmd.command.command_id
 
