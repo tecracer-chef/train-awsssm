@@ -35,6 +35,8 @@ Support for proper use of the AWS Session Manager, which allows complete tunneli
 
 ## Example use
 
+### In Code
+
 ```ruby
 require "train-awsssm"
 train  = Train.create("awsssm", {
@@ -44,4 +46,17 @@ train  = Train.create("awsssm", {
 conn   = train.connection
 result = conn.run_command("apt upgrade -y")
 conn.close
+```
+
+### Using the InSpec CLI
+
+```bash
+# Using aws-instance-id
+inspec exec <path-to-profile> --target awsssm://<aws-instance-id>
+# Or use target IP
+inspec exec <path-to-profile> --target awsssm://<aws-target-ip>
+
+# Examples
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz --target awsssm://i-00f1868f8f3b4eb03
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz --target awsssm://10.20.30.40
 ```
