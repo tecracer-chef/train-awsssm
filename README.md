@@ -10,6 +10,8 @@ You need the [SSM agent to be installed](https://docs.aws.amazon.com/systems-man
 
 Commands will be executed under the `root`/`Administrator` users.
 
+To confirm or troubleshoot the aws-ssm connection, reference the troubleshooting steps in [this AWS article](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-managed-instances.html#instances-missing-solution-1).
+
 ## Installation
 
 If you use this Gem as a plain transport you can use `gem install train-awsssm` but if you need it for InSpec you will need to do it via `inspec plugin install train-awsssm`, as InSpec does not use the global/user Gem directory by default.
