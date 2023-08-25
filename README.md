@@ -52,6 +52,15 @@ conn.close
 
 ### Using the InSpec CLI
 
+#### Additional requirement: 
+You need InSpec installed on the machine from which you wish to run the command. There are multiple ways to install InSpec including through Progress Chef or CINC. Reference the following links for some options.
+- [Progress Chef Documentation](https://docs.chef.io/inspec/install/)
+- [CINC Documentation](https://cinc.sh/download/)
+
+_Remeber to apply AWS credentials to your environment that will have permission to access the target over aws-ssm. There are multiple ways to store credentials which you can read about in [AWS Credential Documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). Once your credentials are loaded, reference [this AWS article](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-managed-instances.html#instances-missing-solution-1) to troubleshoot and issues with the connection and understand additional details about what is required._
+
+#### Example Usage
+
 ```bash
 # Using aws-instance-id
 inspec exec <path-to-profile> --target awsssm://<aws-instance-id>
