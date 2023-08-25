@@ -10,6 +10,8 @@ You need the [SSM agent to be installed](https://docs.aws.amazon.com/systems-man
 
 Commands will be executed under the `root`/`Administrator` users.
 
+To confirm or troubleshoot the aws-ssm connection, reference the troubleshooting steps in [this AWS article](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-managed-instances.html#instances-missing-solution-1).
+
 ## Installation
 
 If you use this Gem as a plain transport you can use `gem install train-awsssm` but if you need it for InSpec you will need to do it via `inspec plugin install train-awsssm`, as InSpec does not use the global/user Gem directory by default.
@@ -35,6 +37,8 @@ Support for proper use of the AWS Session Manager, which allows complete tunneli
 
 ## Example use
 
+### In Code
+
 ```ruby
 require "train-awsssm"
 train  = Train.create("awsssm", {
@@ -44,4 +48,26 @@ train  = Train.create("awsssm", {
 conn   = train.connection
 result = conn.run_command("apt upgrade -y")
 conn.close
+```
+
+### Using the InSpec CLI
+
+#### Additional requirement: 
+You need InSpec installed on the machine from which you wish to run the command. There are multiple ways to install InSpec including through Progress Chef or CINC. Reference the following links for some options.
+- [Progress Chef Documentation](https://docs.chef.io/inspec/install/)
+- [CINC Documentation](https://cinc.sh/download/)
+
+_Remeber to apply AWS credentials to your environment that will have permission to access the target over aws-ssm. There are multiple ways to store credentials which you can read about in [AWS Credential Documentation](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). Once your credentials are loaded, reference [this AWS article](https://docs.aws.amazon.com/systems-manager/latest/userguide/troubleshooting-managed-instances.html#instances-missing-solution-1) to troubleshoot and issues with the connection and understand additional details about what is required._
+
+#### Example Usage
+
+```bash
+# Using aws-instance-id
+inspec exec <path-to-profile> --target awsssm://<aws-instance-id>
+# Or use target IP
+inspec exec <path-to-profile> --target awsssm://<aws-target-ip>
+
+# Examples
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz --target awsssm://i-00f1868f8f3b4eb03
+inspec exec https://github.com/mitre/redhat-enterprise-linux-7-stig-baseline/archive/main.tar.gz --target awsssm://10.20.30.40
 ```
